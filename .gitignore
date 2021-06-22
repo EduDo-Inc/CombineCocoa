@@ -2,7 +2,6 @@
 build/
 DerivedData/
 CombineCocoa.framework.zip
-Example/Example.xcworkspace
 
 ## Various settings
 *.pbxuser
