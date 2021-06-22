@@ -12,7 +12,7 @@
   import UIKit
 
   // MARK: - Publisher
-  @available(iOS 13.0, *)
+  @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
   extension Combine.Publishers {
     /// A Control Event is a publisher that emits whenever the provided
     /// Control Events fire.
@@ -50,7 +50,7 @@
   }
 
   // MARK: - Subscription
-  @available(iOS 13.0, *)
+  @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
   extension Combine.Publishers.ControlEvent {
     private final class Subscription<S: Subscriber, Control: UIControl>: Combine.Subscription
     where S.Input == Void {

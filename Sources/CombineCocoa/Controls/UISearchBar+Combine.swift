@@ -11,7 +11,7 @@
   import Combine
 
   // swiftlint:disable force_cast
-  @available(iOS 13.0, *)
+  @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
   extension UISearchBar {
     /// Combine wrapper for `UISearchBarDelegate.searchBar(_:textDidChange:)`
     public var textDidChangePublisher: AnyPublisher<String, Never> {
@@ -48,7 +48,7 @@
     }
   }
 
-  @available(iOS 13.0, *)
+  @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
   private class UISearchBarDelegateProxy: DelegateProxy, UISearchBarDelegate, DelegateProxyType {
     func setDelegate(to object: UISearchBar) {
       object.delegate = self

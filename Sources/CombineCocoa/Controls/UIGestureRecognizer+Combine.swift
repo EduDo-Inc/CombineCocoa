@@ -11,7 +11,7 @@
   import UIKit
 
   // MARK: - Gesture Publishers
-  @available(iOS 13.0, *)
+  @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
   extension UITapGestureRecognizer {
     /// A publisher which emits when this Tap Gesture Recognizer is triggered
     public var tapPublisher: AnyPublisher<UITapGestureRecognizer, Never> {
@@ -19,7 +19,7 @@
     }
   }
 
-  @available(iOS 13.0, *)
+  @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
   extension UIPinchGestureRecognizer {
     /// A publisher which emits when this Pinch Gesture Recognizer is triggered
     public var pinchPublisher: AnyPublisher<UIPinchGestureRecognizer, Never> {
@@ -27,7 +27,7 @@
     }
   }
 
-  @available(iOS 13.0, *)
+  @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
   extension UIRotationGestureRecognizer {
     /// A publisher which emits when this Rotation Gesture Recognizer is triggered
     public var rotationPublisher: AnyPublisher<UIRotationGestureRecognizer, Never> {
@@ -35,7 +35,7 @@
     }
   }
 
-  @available(iOS 13.0, *)
+  @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
   extension UISwipeGestureRecognizer {
     /// A publisher which emits when this Swipe Gesture Recognizer is triggered
     public var swipePublisher: AnyPublisher<UISwipeGestureRecognizer, Never> {
@@ -43,7 +43,7 @@
     }
   }
 
-  @available(iOS 13.0, *)
+  @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
   extension UIPanGestureRecognizer {
     /// A publisher which emits when this Pan Gesture Recognizer is triggered
     public var panPublisher: AnyPublisher<UIPanGestureRecognizer, Never> {
@@ -51,7 +51,7 @@
     }
   }
 
-  @available(iOS 13.0, *)
+  @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
   extension UIScreenEdgePanGestureRecognizer {
     /// A publisher which emits when this Screen Edge Gesture Recognizer is triggered
     public var screenEdgePanPublisher: AnyPublisher<UIScreenEdgePanGestureRecognizer, Never> {
@@ -59,7 +59,7 @@
     }
   }
 
-  @available(iOS 13.0, *)
+  @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
   extension UILongPressGestureRecognizer {
     /// A publisher which emits when this Long Press Recognizer is triggered
     public var longPressPublisher: AnyPublisher<UILongPressGestureRecognizer, Never> {
@@ -71,7 +71,7 @@
 
   // A private generic helper function which returns the provided
   // generic publisher whenever its specific event occurs.
-  @available(iOS 13.0, *)
+  @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
   private func gesturePublisher<Gesture: UIGestureRecognizer>(for gesture: Gesture) -> AnyPublisher<
     Gesture, Never
   > {

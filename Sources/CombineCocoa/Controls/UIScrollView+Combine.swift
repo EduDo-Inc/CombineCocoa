@@ -10,7 +10,7 @@
   import UIKit
   import Combine
 
-  @available(iOS 13.0, *)
+  @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
   extension UIScrollView {
     /// A publisher emitting content offset changes from this UIScrollView.
     public var contentOffsetPublisher: AnyPublisher<CGPoint, Never> {

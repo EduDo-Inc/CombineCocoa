@@ -10,7 +10,7 @@
   import Combine
   import UIKit
 
-  @available(iOS 13.0, *)
+  @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
   extension UISlider {
     /// A publisher emitting value changes for this slider.
     public var valuePublisher: AnyPublisher<Float, Never> {
