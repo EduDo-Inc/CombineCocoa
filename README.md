@@ -51,32 +51,12 @@ nsObject.publisher(for: #selector(NSObject.someMethod))
 
 ## Installation
 
-### CocoaPods
-
-> May work,  but not supported in this fork, cocoapods will fetch `CombineCommunity/CombineCocoa`
-
-Add the following line to your **Podfile**:
-
-```rb
-pod 'CombineCocoa'
-```
-
 ### Swift Package Manager
 
 Add the following dependency to your **Package.swift** file:
 
 ```swift
 .package(url: "https://github.com/edudo-inc/CombineCocoa.git", from: "0.2.1")
-```
-
-### Carthage
-
-> May work,  but not supported in this fork
-
-Add the following to your **Cartfile**:
-
-```
-github "edudo-inc/CombineCocoa"
 ```
 
 ## Future ideas 
