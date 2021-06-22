@@ -9,14 +9,14 @@
 import Foundation
 
 #if canImport(UIKit) && canImport(Combine)
-import Combine
-import UIKit
+  import Combine
+  import UIKit
 
-/// A list of animations that can be used with `Publisher.assign(to:on:animation:)`
-@available(iOS 13.0, *)
-public enum AssignTransition {
+  /// A list of animations that can be used with `Publisher.assign(to:on:animation:)`
+  @available(iOS 13.0, *)
+  public enum AssignTransition {
     public enum Direction {
-        case top, bottom, left, right
+      case top, bottom, left, right
     }
 
     /// Flip from either bottom, top, left, or right.
@@ -26,11 +26,16 @@ public enum AssignTransition {
     case fade(duration: TimeInterval)
 
     /// A custom animation. Do not include your own code to update the target of the assign subscriber.
-    case animation(duration: TimeInterval, options: UIView.AnimationOptions, animations: () -> Void, completion: ((Bool) -> Void)?)
-}
+    case animation(
+      duration: TimeInterval,
+      options: UIView.AnimationOptions,
+      animations: () -> Void,
+      completion: ((Bool) -> Void)?
+    )
+  }
 
-@available(iOS 13.0, *)
-public extension Publisher where Self.Failure == Never {
+  @available(iOS 13.0, *)
+  extension Publisher where Self.Failure == Never {
     /// Behaves identically to `Publisher.assign(to:on:)` except that it allows the user to
     /// "wrap" emitting output in an animation transition.
     ///
@@ -52,51 +57,60 @@ public extension Publisher where Self.Failure == Never {
     ///     myLabel.center.x += 10.0
     ///   }, completion: nil))
     /// ```
-    func assign<Root: UIView>(to keyPath: ReferenceWritableKeyPath<Root, Self.Output>, on object: Root, animation: AssignTransition) -> AnyCancellable {
-        var transition: UIView.AnimationOptions
-        var duration: TimeInterval
+    public func assign<Root: UIView>(
+      to keyPath: ReferenceWritableKeyPath<Root, Self.Output>,
+      on object: Root,
+      animation: AssignTransition
+    ) -> AnyCancellable {
+      var transition: UIView.AnimationOptions
+      var duration: TimeInterval
 
-        switch animation {
-        case .fade(let interval):
-            duration = interval
-            transition = .transitionCrossDissolve
-        case let .flip(dir, interval):
-            duration = interval
-            switch dir {
-            case .bottom: transition = .transitionFlipFromBottom
-            case .top: transition    = .transitionFlipFromTop
-            case .left: transition   = .transitionFlipFromLeft
-            case .right: transition  = .transitionFlipFromRight
-            }
-        case let .animation(interval, options, animations, completion):
-            // Use a custom animation.
-            return handleEvents(
-                receiveOutput: { value in
-                    UIView.animate(withDuration: interval,
-                                   delay: 0,
-                                   options: options,
-                                   animations: {
-                                    object[keyPath: keyPath] = value
-                                    animations()
-                                   },
-                                   completion: completion)
-                    }
-                )
-                .sink { _ in }
+      switch animation {
+      case .fade(let interval):
+        duration = interval
+        transition = .transitionCrossDissolve
+      case let .flip(dir, interval):
+        duration = interval
+        switch dir {
+        case .bottom: transition = .transitionFlipFromBottom
+        case .top: transition = .transitionFlipFromTop
+        case .left: transition = .transitionFlipFromLeft
+        case .right: transition = .transitionFlipFromRight
         }
+      case let .animation(interval, options, animations, completion):
+        // Use a custom animation.
+        return handleEvents(
+          receiveOutput: { value in
+            UIView.animate(
+              withDuration: interval,
+              delay: 0,
+              options: options,
+              animations: {
+                object[keyPath: keyPath] = value
+                animations()
+              },
+              completion: completion
+            )
+          }
+        )
+        .sink { _ in }
+      }
 
-        // Use one of the built-in transitions like flip or crossfade.
-        return self
-            .handleEvents(receiveOutput: { value in
-                UIView.transition(with: object,
-                                  duration: duration,
-                                  options: transition,
-                                  animations: {
-                                    object[keyPath: keyPath] = value
-                                  },
-                                  completion: nil)
-            })
-            .sink { _ in }
+      // Use one of the built-in transitions like flip or crossfade.
+      return
+        self
+        .handleEvents(receiveOutput: { value in
+          UIView.transition(
+            with: object,
+            duration: duration,
+            options: transition,
+            animations: {
+              object[keyPath: keyPath] = value
+            },
+            completion: nil
+          )
+        })
+        .sink { _ in }
     }
-}
+  }
 #endif

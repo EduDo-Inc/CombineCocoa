@@ -7,15 +7,19 @@
 //
 
 #if canImport(Combine)
-import Combine
-import UIKit
+  import Combine
+  import UIKit
 
-@available(iOS 13.0, *)
-public extension UIRefreshControl {
+  @available(iOS 13.0, *)
+  extension UIRefreshControl {
     /// A publisher emitting refresh status changes from this refresh control.
-    var isRefreshingPublisher: AnyPublisher<Bool, Never> {
-        Publishers.ControlProperty(control: self, events: .defaultValueEvents, keyPath: \.isRefreshing)
-                  .eraseToAnyPublisher()
+    public var isRefreshingPublisher: AnyPublisher<Bool, Never> {
+      Publishers.ControlProperty(
+        control: self,
+        events: .defaultValueEvents,
+        keyPath: \.isRefreshing
+      )
+      .eraseToAnyPublisher()
     }
-}
+  }
 #endif

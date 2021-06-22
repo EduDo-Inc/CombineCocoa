@@ -7,15 +7,15 @@
 //
 
 #if canImport(Combine)
-import Combine
-import UIKit
+  import Combine
+  import UIKit
 
-@available(iOS 13.0, *)
-public extension UISwitch {
+  @available(iOS 13.0, *)
+  extension UISwitch {
     /// A publisher emitting on status changes for this switch.
-    var isOnPublisher: AnyPublisher<Bool, Never> {
-        Publishers.ControlProperty(control: self, events: .defaultValueEvents, keyPath: \.isOn)
-                  .eraseToAnyPublisher()
+    public var isOnPublisher: AnyPublisher<Bool, Never> {
+      Publishers.ControlProperty(control: self, events: .defaultValueEvents, keyPath: \.isOn)
+        .eraseToAnyPublisher()
     }
-}
+  }
 #endif

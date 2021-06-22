@@ -7,14 +7,14 @@
 //
 
 #if canImport(Combine)
-import Combine
-import UIKit
+  import Combine
+  import UIKit
 
-@available(iOS 13.0, *)
-public extension UIPageControl {
+  @available(iOS 13.0, *)
+  extension UIPageControl {
     /// A publisher emitting current page changes for this page control.
-    var currentPagePublisher: AnyPublisher<Int, Never> {
-        publisher(for: \.currentPage).eraseToAnyPublisher()
+    public var currentPagePublisher: AnyPublisher<Int, Never> {
+      publisher(for: \.currentPage).eraseToAnyPublisher()
     }
-}
+  }
 #endif

@@ -7,15 +7,19 @@
 //
 
 #if canImport(Combine)
-import Combine
-import UIKit
+  import Combine
+  import UIKit
 
-@available(iOS 13.0, *)
-public extension UISegmentedControl {
+  @available(iOS 13.0, *)
+  extension UISegmentedControl {
     /// A publisher emitting selected segment index changes for this segmented control.
-    var selectedSegmentIndexPublisher: AnyPublisher<Int, Never> {
-        Publishers.ControlProperty(control: self, events: .defaultValueEvents, keyPath: \.selectedSegmentIndex)
-                  .eraseToAnyPublisher()
+    public var selectedSegmentIndexPublisher: AnyPublisher<Int, Never> {
+      Publishers.ControlProperty(
+        control: self,
+        events: .defaultValueEvents,
+        keyPath: \.selectedSegmentIndex
+      )
+      .eraseToAnyPublisher()
     }
-}
+  }
 #endif

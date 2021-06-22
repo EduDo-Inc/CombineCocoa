@@ -7,28 +7,28 @@
 //
 
 #if canImport(Combine)
-import UIKit
-import Combine
+  import UIKit
+  import Combine
 
-@available(iOS 13.0, *)
-public extension UITextView {
-  /// A Combine publisher for the `UITextView's` value.
-  ///
-  /// - note: This uses the underlying `NSTextStorage` to make sure
-  ///         autocorrect changes are reflected as well.
-  ///
-  /// - seealso: https://git.io/JJM5Q
-  var valuePublisher: AnyPublisher<String?, Never> {
-    Deferred { [weak textView = self] in
-      textView?.textStorage
-        .didProcessEditingRangeChangeInLengthPublisher
-        .map { _ in textView?.text }
-        .prepend(textView?.text)
-        .eraseToAnyPublisher() ?? Empty().eraseToAnyPublisher()
+  @available(iOS 13.0, *)
+  extension UITextView {
+    /// A Combine publisher for the `UITextView's` value.
+    ///
+    /// - note: This uses the underlying `NSTextStorage` to make sure
+    ///         autocorrect changes are reflected as well.
+    ///
+    /// - seealso: https://git.io/JJM5Q
+    public var valuePublisher: AnyPublisher<String?, Never> {
+      Deferred { [weak textView = self] in
+        textView?.textStorage
+          .didProcessEditingRangeChangeInLengthPublisher
+          .map { _ in textView?.text }
+          .prepend(textView?.text)
+          .eraseToAnyPublisher() ?? Empty().eraseToAnyPublisher()
+      }
+      .eraseToAnyPublisher()
     }
-    .eraseToAnyPublisher()
-  }
 
-  var textPublisher: AnyPublisher<String?, Never> { valuePublisher }
-}
+    public var textPublisher: AnyPublisher<String?, Never> { valuePublisher }
+  }
 #endif

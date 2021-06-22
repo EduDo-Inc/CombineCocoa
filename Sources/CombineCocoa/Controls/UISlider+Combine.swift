@@ -7,15 +7,15 @@
 //
 
 #if canImport(Combine)
-import Combine
-import UIKit
+  import Combine
+  import UIKit
 
-@available(iOS 13.0, *)
-public extension UISlider {
+  @available(iOS 13.0, *)
+  extension UISlider {
     /// A publisher emitting value changes for this slider.
-    var valuePublisher: AnyPublisher<Float, Never> {
-        Publishers.ControlProperty(control: self, events: .defaultValueEvents, keyPath: \.value)
-                  .eraseToAnyPublisher()
+    public var valuePublisher: AnyPublisher<Float, Never> {
+      Publishers.ControlProperty(control: self, events: .defaultValueEvents, keyPath: \.value)
+        .eraseToAnyPublisher()
     }
-}
+  }
 #endif

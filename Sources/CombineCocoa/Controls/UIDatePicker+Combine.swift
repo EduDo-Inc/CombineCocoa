@@ -7,21 +7,25 @@
 //
 
 #if canImport(Combine)
-import Combine
-import UIKit
+  import Combine
+  import UIKit
 
-@available(iOS 13.0, *)
-public extension UIDatePicker {
+  @available(iOS 13.0, *)
+  extension UIDatePicker {
     /// A publisher emitting date changes from this date picker.
-    var datePublisher: AnyPublisher<Date, Never> {
-        Publishers.ControlProperty(control: self, events: .defaultValueEvents, keyPath: \.date)
-                  .eraseToAnyPublisher()
+    public var datePublisher: AnyPublisher<Date, Never> {
+      Publishers.ControlProperty(control: self, events: .defaultValueEvents, keyPath: \.date)
+        .eraseToAnyPublisher()
     }
 
     /// A publisher emitting countdown duration changes from this date picker.
-    var countDownDurationPublisher: AnyPublisher<TimeInterval, Never> {
-        Publishers.ControlProperty(control: self, events: .defaultValueEvents, keyPath: \.countDownDuration)
-                  .eraseToAnyPublisher()
+    public var countDownDurationPublisher: AnyPublisher<TimeInterval, Never> {
+      Publishers.ControlProperty(
+        control: self,
+        events: .defaultValueEvents,
+        keyPath: \.countDownDuration
+      )
+      .eraseToAnyPublisher()
     }
-}
+  }
 #endif

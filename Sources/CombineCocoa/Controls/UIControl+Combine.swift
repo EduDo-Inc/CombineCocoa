@@ -7,15 +7,15 @@
 //
 
 #if canImport(Combine)
-import Combine
-import UIKit
+  import Combine
+  import UIKit
 
-@available(iOS 13.0, *)
-public extension UIControl {
+  @available(iOS 13.0, *)
+  extension UIControl {
     /// A publisher emitting events from this control.
-    func controlEventPublisher(for events: UIControl.Event) -> AnyPublisher<Void, Never> {
-        Publishers.ControlEvent(control: self, events: events)
-                  .eraseToAnyPublisher()
+    public func controlEventPublisher(for events: UIControl.Event) -> AnyPublisher<Void, Never> {
+      Publishers.ControlEvent(control: self, events: events)
+        .eraseToAnyPublisher()
     }
-}
+  }
 #endif

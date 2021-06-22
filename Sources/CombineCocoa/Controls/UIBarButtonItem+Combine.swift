@@ -7,23 +7,25 @@
 //
 
 #if canImport(Combine)
-import Combine
-import UIKit
+  import Combine
+  import UIKit
 
-@available(iOS 13.0, *)
-public extension UIBarButtonItem {
+  @available(iOS 13.0, *)
+  extension UIBarButtonItem {
     /// A publisher which emits whenever this UIBarButtonItem is tapped.
-    var tapPublisher: AnyPublisher<Void, Never> {
-        Publishers.ControlTarget(control: self,
-                                 addTargetAction: { control, target, action in
-                                    control.target = target
-                                    control.action = action
-                                 },
-                                 removeTargetAction: { control, _, _ in
-                                    control?.target = nil
-                                    control?.action = nil
-                                 })
-                  .eraseToAnyPublisher()
+    public var tapPublisher: AnyPublisher<Void, Never> {
+      Publishers.ControlTarget(
+        control: self,
+        addTargetAction: { control, target, action in
+          control.target = target
+          control.action = action
+        },
+        removeTargetAction: { control, _, _ in
+          control?.target = nil
+          control?.action = nil
+        }
+      )
+      .eraseToAnyPublisher()
+    }
   }
-}
 #endif

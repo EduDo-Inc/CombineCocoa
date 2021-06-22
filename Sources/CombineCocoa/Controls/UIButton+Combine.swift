@@ -7,14 +7,14 @@
 //
 
 #if canImport(Combine)
-import Combine
-import UIKit
+  import Combine
+  import UIKit
 
-@available(iOS 13.0, *)
-public extension UIButton {
+  @available(iOS 13.0, *)
+  extension UIButton {
     /// A publisher emitting tap events from this button.
-    var tapPublisher: AnyPublisher<Void, Never> {
-        controlEventPublisher(for: .touchUpInside)
+    public var tapPublisher: AnyPublisher<Void, Never> {
+      controlEventPublisher(for: .touchUpInside)
     }
-}
+  }
 #endif
