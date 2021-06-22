@@ -11,7 +11,7 @@ let package = Package(
     .library(
       name: "CombineCocoaDependency",
       targets: ["CombineCocoaDependency"]
-    ),
+    )
   ],
   dependencies: [
     .package(path: "../../")

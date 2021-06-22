@@ -6,53 +6,54 @@
 //  Copyright © 2020 Combine Community. All rights reserved.
 //
 
-import XCTest
 import Combine
+import XCTest
+
 @testable import CombineCocoa
 
 class UISearchBarTests: XCTestCase {
-    var subscription: AnyCancellable!
+  var subscription: AnyCancellable!
 
-    func test_textDidChange() {
-        let searchbar = UISearchBar()
+  func test_textDidChange() {
+    let searchbar = UISearchBar()
 
-        var resultSearchText = ""
+    var resultSearchText = ""
 
-        subscription = searchbar.textDidChangePublisher
-            .sink(receiveValue: { resultSearchText = $0 })
+    subscription = searchbar.textDidChangePublisher
+      .sink(receiveValue: { resultSearchText = $0 })
 
-        let givenSearchText = "Hello world"
-        searchbar.delegate!.searchBar!(searchbar, textDidChange: givenSearchText)
+    let givenSearchText = "Hello world"
+    searchbar.delegate!.searchBar!(searchbar, textDidChange: givenSearchText)
 
-        XCTAssertEqual(resultSearchText, givenSearchText)
-        subscription.cancel()
-    }
+    XCTAssertEqual(resultSearchText, givenSearchText)
+    subscription.cancel()
+  }
 
-    func test_searchButtonClicked() {
-        let searchbar = UISearchBar()
+  func test_searchButtonClicked() {
+    let searchbar = UISearchBar()
 
-        var clicked = false
+    var clicked = false
 
-        subscription = searchbar.searchButtonClickedPublisher
-            .sink(receiveValue: { clicked = true })
+    subscription = searchbar.searchButtonClickedPublisher
+      .sink(receiveValue: { clicked = true })
 
-        searchbar.delegate!.searchBarSearchButtonClicked!(searchbar)
+    searchbar.delegate!.searchBarSearchButtonClicked!(searchbar)
 
-        XCTAssertEqual(clicked, true)
-        subscription.cancel()
-    }
+    XCTAssertEqual(clicked, true)
+    subscription.cancel()
+  }
 
-    func test_cancelButtonClicked() {
-        let searchbar = UISearchBar()
+  func test_cancelButtonClicked() {
+    let searchbar = UISearchBar()
 
-        var clicked = false
+    var clicked = false
 
-        subscription = searchbar.cancelButtonClickedPublisher
-            .sink(receiveValue: { clicked = true })
+    subscription = searchbar.cancelButtonClickedPublisher
+      .sink(receiveValue: { clicked = true })
 
-        searchbar.delegate!.searchBarCancelButtonClicked!(searchbar)
+    searchbar.delegate!.searchBarCancelButtonClicked!(searchbar)
 
-        XCTAssertEqual(clicked, true)
-        subscription.cancel()
-    }
+    XCTAssertEqual(clicked, true)
+    subscription.cancel()
+  }
 }

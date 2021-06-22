@@ -6,122 +6,131 @@
 //  Copyright © 2020 Combine Community. All rights reserved.
 //
 
-import XCTest
 import Combine
+import XCTest
+
 @testable import CombineCocoa
 
 class UITableViewTests: XCTestCase {
-    var subscriptions = Set<AnyCancellable>()
-    
-    override func tearDown() {
-        subscriptions = .init()
-    }
-    
-    func test_didSelectRowAt() {
-        let tableView = UITableView()
+  var subscriptions = Set<AnyCancellable>()
 
-        var resultIndexPath: IndexPath? = nil
+  override func tearDown() {
+    subscriptions = .init()
+  }
 
-        tableView.didSelectRowPublisher
-            .sink(receiveValue: { resultIndexPath = $0 })
-            .store(in: &subscriptions)
+  func test_didSelectRowAt() {
+    let tableView = UITableView()
 
-        let givenIndexPath = IndexPath(row: 1, section: 0)
-        tableView.delegate!.tableView!(tableView, didSelectRowAt: givenIndexPath)
+    var resultIndexPath: IndexPath? = nil
 
-        XCTAssertEqual(resultIndexPath, givenIndexPath)
-    }
+    tableView.didSelectRowPublisher
+      .sink(receiveValue: { resultIndexPath = $0 })
+      .store(in: &subscriptions)
 
-    func test_didDeselectRowAt() {
-        let tableView = UITableView()
+    let givenIndexPath = IndexPath(row: 1, section: 0)
+    tableView.delegate!.tableView!(tableView, didSelectRowAt: givenIndexPath)
 
-        var resultIndexPath: IndexPath? = nil
+    XCTAssertEqual(resultIndexPath, givenIndexPath)
+  }
 
-        tableView.didDeselectRowPublisher
-            .sink(receiveValue: { resultIndexPath = $0 })
-            .store(in: &subscriptions)
+  func test_didDeselectRowAt() {
+    let tableView = UITableView()
 
-        let givenIndexPath = IndexPath(row: 1, section: 0)
-        tableView.delegate!.tableView!(tableView, didDeselectRowAt: givenIndexPath)
+    var resultIndexPath: IndexPath? = nil
 
-        XCTAssertEqual(resultIndexPath, givenIndexPath)
-    }
+    tableView.didDeselectRowPublisher
+      .sink(receiveValue: { resultIndexPath = $0 })
+      .store(in: &subscriptions)
 
-    func test_willDisplayCell() {
-        let tableView = UITableView()
+    let givenIndexPath = IndexPath(row: 1, section: 0)
+    tableView.delegate!.tableView!(tableView, didDeselectRowAt: givenIndexPath)
 
-        var resultIndexPath: IndexPath? = nil
-        var resultTableViewCell: UITableViewCell? = nil
+    XCTAssertEqual(resultIndexPath, givenIndexPath)
+  }
 
-        tableView.willDisplayCellPublisher
-            .sink(receiveValue: { cell, indexPath in
-                resultTableViewCell = cell
-                resultIndexPath = indexPath
-            })
-            .store(in: &subscriptions)
+  func test_willDisplayCell() {
+    let tableView = UITableView()
 
-        let givenIndexPath = IndexPath(row: 1, section: 0)
-        let givenTableViewCell = UITableViewCell()
-        tableView.delegate!.tableView!(tableView, willDisplay: givenTableViewCell, forRowAt: givenIndexPath)
+    var resultIndexPath: IndexPath? = nil
+    var resultTableViewCell: UITableViewCell? = nil
 
-        XCTAssertEqual(resultIndexPath, givenIndexPath)
-        XCTAssertEqual(resultTableViewCell, givenTableViewCell)
-    }
+    tableView.willDisplayCellPublisher
+      .sink(receiveValue: { cell, indexPath in
+        resultTableViewCell = cell
+        resultIndexPath = indexPath
+      })
+      .store(in: &subscriptions)
 
-    func test_didEndDisplayingCell() {
-        let tableView = UITableView()
+    let givenIndexPath = IndexPath(row: 1, section: 0)
+    let givenTableViewCell = UITableViewCell()
+    tableView.delegate!.tableView!(
+      tableView,
+      willDisplay: givenTableViewCell,
+      forRowAt: givenIndexPath
+    )
 
-        var resultIndexPath: IndexPath? = nil
-        var resultTableViewCell: UITableViewCell? = nil
+    XCTAssertEqual(resultIndexPath, givenIndexPath)
+    XCTAssertEqual(resultTableViewCell, givenTableViewCell)
+  }
 
-        tableView.didEndDisplayingCellPublisher
-            .sink(receiveValue: { cell, indexPath in
-                resultTableViewCell = cell
-                resultIndexPath = indexPath
-            })
-            .store(in: &subscriptions)
+  func test_didEndDisplayingCell() {
+    let tableView = UITableView()
 
-        let givenIndexPath = IndexPath(row: 1, section: 0)
-        let givenTableViewCell = UITableViewCell()
-        tableView.delegate!.tableView!(tableView, didEndDisplaying: givenTableViewCell, forRowAt: givenIndexPath)
+    var resultIndexPath: IndexPath? = nil
+    var resultTableViewCell: UITableViewCell? = nil
 
-        XCTAssertEqual(resultIndexPath, givenIndexPath)
-        XCTAssertEqual(resultTableViewCell, givenTableViewCell)
-    }
+    tableView.didEndDisplayingCellPublisher
+      .sink(receiveValue: { cell, indexPath in
+        resultTableViewCell = cell
+        resultIndexPath = indexPath
+      })
+      .store(in: &subscriptions)
 
-    func test_itemAccessoryButtonTapped() {
-        let tableView = UITableView()
+    let givenIndexPath = IndexPath(row: 1, section: 0)
+    let givenTableViewCell = UITableViewCell()
+    tableView.delegate!.tableView!(
+      tableView,
+      didEndDisplaying: givenTableViewCell,
+      forRowAt: givenIndexPath
+    )
 
-        var resultIndexPath: IndexPath? = nil
+    XCTAssertEqual(resultIndexPath, givenIndexPath)
+    XCTAssertEqual(resultTableViewCell, givenTableViewCell)
+  }
 
-        tableView.itemAccessoryButtonTappedPublisher
-            .sink(receiveValue: { resultIndexPath = $0 })
-            .store(in: &subscriptions)
+  func test_itemAccessoryButtonTapped() {
+    let tableView = UITableView()
 
-        let givenIndexPath = IndexPath(row: 1, section: 0)
-        tableView.delegate!.tableView!(tableView, accessoryButtonTappedForRowWith: givenIndexPath)
+    var resultIndexPath: IndexPath? = nil
 
-        XCTAssertEqual(resultIndexPath, givenIndexPath)
-    }
-    
-    func test_didSelectRowAt_for_multiple_subscribers() {
-        let tableView = UITableView()
+    tableView.itemAccessoryButtonTappedPublisher
+      .sink(receiveValue: { resultIndexPath = $0 })
+      .store(in: &subscriptions)
 
-        var firstResultIndexPaths = [IndexPath]()
-        var secondResultIndexPaths = [IndexPath]()
+    let givenIndexPath = IndexPath(row: 1, section: 0)
+    tableView.delegate!.tableView!(tableView, accessoryButtonTappedForRowWith: givenIndexPath)
 
-        tableView.didSelectRowPublisher
-            .sink(receiveValue: { firstResultIndexPaths.append($0) })
-            .store(in: &subscriptions)
+    XCTAssertEqual(resultIndexPath, givenIndexPath)
+  }
 
-        tableView.didSelectRowPublisher
-            .sink(receiveValue: { secondResultIndexPaths.append($0) })
-            .store(in: &subscriptions)
+  func test_didSelectRowAt_for_multiple_subscribers() {
+    let tableView = UITableView()
 
-        let givenIndexPath = IndexPath(row: 1, section: 0)
-        tableView.delegate!.tableView!(tableView, didSelectRowAt: givenIndexPath)
+    var firstResultIndexPaths = [IndexPath]()
+    var secondResultIndexPaths = [IndexPath]()
 
-        XCTAssertEqual(firstResultIndexPaths, [givenIndexPath])
-        XCTAssertEqual(firstResultIndexPaths, secondResultIndexPaths)
-    }
+    tableView.didSelectRowPublisher
+      .sink(receiveValue: { firstResultIndexPaths.append($0) })
+      .store(in: &subscriptions)
+
+    tableView.didSelectRowPublisher
+      .sink(receiveValue: { secondResultIndexPaths.append($0) })
+      .store(in: &subscriptions)
+
+    let givenIndexPath = IndexPath(row: 1, section: 0)
+    tableView.delegate!.tableView!(tableView, didSelectRowAt: givenIndexPath)
+
+    XCTAssertEqual(firstResultIndexPaths, [givenIndexPath])
+    XCTAssertEqual(firstResultIndexPaths, secondResultIndexPaths)
+  }
 }
