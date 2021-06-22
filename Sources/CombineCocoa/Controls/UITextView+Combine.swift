@@ -6,7 +6,7 @@
 //  Copyright © 2020 Combine Community. All rights reserved.
 //
 
-#if canImport(Combine)
+#if canImport(Combine) && os(iOS)
   import UIKit
   import Combine
 

@@ -6,10 +6,10 @@
 //  Copyright © 2020 Combine Community. All rights reserved.
 //
 
-#if canImport(Combine)
+#if canImport(Combine) && os(iOS)
   import Combine
   import Foundation
-  import class UIKit.UIControl
+  import UIKit
 
   // MARK: - Publisher
   @available(iOS 13.0, *)

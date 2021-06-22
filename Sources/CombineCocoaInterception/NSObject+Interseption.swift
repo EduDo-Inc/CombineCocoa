@@ -38,7 +38,7 @@ extension NSObject {
   ///   - selector: The selector to observe.
   ///
   /// - returns: A trigger publisher.
-  @available(iOS 13.0, *)
+  @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
   public func publisher(for selector: Selector) -> AnyPublisher<(), Never> {
     return intercept(selector).map { (_: AnyObject) in }.eraseToAnyPublisher()
   }
@@ -56,7 +56,7 @@ extension NSObject {
   ///   - selector: The selector to observe.
   ///
   /// - returns: A publisher that sends an array of bridged arguments.
-  @available(iOS 13.0, *)
+  @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
   public func intercept(_ selector: Selector) -> AnyPublisher<[Any?], Never> {
     return intercept(selector).map(unpackInvocation).eraseToAnyPublisher()
   }
@@ -69,7 +69,7 @@ extension NSObject {
   ///
   /// - returns: A publisher that sends the corresponding `NSInvocation` after
   ///            every invocation of the method.
-  @available(iOS 13.0, *)
+  @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
   @nonobjc fileprivate func intercept(_ selector: Selector) -> AnyPublisher<AnyObject, Never> {
     guard let method = class_getInstanceMethod(objcClass, selector) else {
       fatalError(
@@ -325,7 +325,7 @@ private func setupMethodSignatureCaching(_ realClass: AnyClass, _ signatureCache
 }
 
 /// The state of an intercepted method specific to an instance.
-@available(iOS 13.0, *)
+@available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
 private final class InterceptingState {
   let subject = PassthroughSubject<AnyObject, Never>()
 }
