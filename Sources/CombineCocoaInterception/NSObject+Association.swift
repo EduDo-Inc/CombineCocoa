@@ -6,11 +6,10 @@
 //  Copyright © 2020 Combine Community. All rights reserved.
 //
 
-import Combine
 import Foundation
 
-#if canImport(Runtime)
-  import Runtime
+#if canImport(CombineCocoaRuntime)
+  import CombineCocoaRuntime
 #endif
 
 internal struct AssociationKey<Value> {

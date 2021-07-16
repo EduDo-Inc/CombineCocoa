@@ -16,15 +16,15 @@ let package = Package(
       name: "CombineCocoa",
       dependencies: [
         .target(name: "CombineCocoaInterception"),
-        .target(name: "Runtime"),
+        .target(name: "CombineCocoaRuntime"),
       ]
     ),
     .target(
       name: "CombineCocoaInterception",
       dependencies: [
-        .target(name: "Runtime")
+        .target(name: "CombineCocoaRuntime")
       ]
     ),
-    .target(name: "Runtime"),
+    .target(name: "CombineCocoaRuntime"),
   ]
 )
