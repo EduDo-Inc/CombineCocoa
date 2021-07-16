@@ -157,6 +157,7 @@ extension NSObject {
 ///
 /// - parameters:
 ///   - realClass: The runtime subclass to be swizzled.
+@available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
 private func enableMessageForwarding(_ realClass: AnyClass, _ selectorCache: SelectorCache) {
   let perceivedClass: AnyClass = class_getSuperclass(realClass)!
 
