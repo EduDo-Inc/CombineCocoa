@@ -6,6 +6,7 @@
 //  Copyright © 2020 Combine Community. All rights reserved.
 //
 
+#if canImport(Combine)
 import Combine
 import Foundation
 
@@ -514,3 +515,4 @@ private func unpackInvocation(_ invocation: AnyObject) -> [Any?] {
 
   return bridged
 }
+#endif

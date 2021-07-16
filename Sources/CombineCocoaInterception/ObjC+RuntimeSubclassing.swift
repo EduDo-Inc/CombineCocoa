@@ -6,6 +6,7 @@
 //  Copyright © 2020 Combine Community. All rights reserved.
 //
 
+#if canImport(Combine)
 import Combine
 import Foundation
 
@@ -162,3 +163,4 @@ private func replaceGetClass(in class: AnyClass, decoy perceivedClass: AnyClass)
     ObjCMethodEncoding.getClass
   )
 }
+#endif
